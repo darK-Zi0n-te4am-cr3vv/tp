@@ -48,11 +48,6 @@ BOOL CtpDoc::OnNewDocument()
 	return TRUE;
 }
 
-
-
-
-// CtpDoc serialization
-
 #ifdef SHARED_HANDLERS
 
 // Support for thumbnails
