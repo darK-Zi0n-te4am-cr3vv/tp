@@ -14,6 +14,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
+	const CImage & GetImage();
 
 // Operations
 public:

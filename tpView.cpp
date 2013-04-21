@@ -46,14 +46,15 @@ BOOL CtpView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CtpView drawing
 
-void CtpView::OnDraw(CDC* /*pDC*/)
+void CtpView::OnDraw(CDC* pDC)
 {
 	CtpDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: add draw code for native data here
+	const CImage & image = pDoc->GetImage();
+	image.Draw(*pDC, 0, 0);
 }
 
 

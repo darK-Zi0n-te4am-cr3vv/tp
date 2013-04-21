@@ -71,6 +71,11 @@ BOOL CtpDoc::OnSaveDocument(LPCTSTR lPathName)
 	return TRUE;
 }
 
+const CImage & CtpDoc::GetImage()
+{
+	return m_Image;
+}
+
 #ifdef SHARED_HANDLERS
 
 // Support for thumbnails
