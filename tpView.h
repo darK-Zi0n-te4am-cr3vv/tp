@@ -5,7 +5,7 @@
 #pragma once
 
 
-class CtpView : public CView
+class CtpView : public CScrollView
 {
 protected: // create from serialization only
 	CtpView();
@@ -20,6 +20,7 @@ public:
 
 // Overrides
 public:
+	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:

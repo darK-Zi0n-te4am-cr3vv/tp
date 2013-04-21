@@ -19,9 +19,9 @@
 
 // CtpView
 
-IMPLEMENT_DYNCREATE(CtpView, CView)
+IMPLEMENT_DYNCREATE(CtpView, CScrollView)
 
-BEGIN_MESSAGE_MAP(CtpView, CView)
+BEGIN_MESSAGE_MAP(CtpView, CScrollView)
 END_MESSAGE_MAP()
 
 // CtpView construction/destruction
@@ -41,7 +41,18 @@ BOOL CtpView::PreCreateWindow(CREATESTRUCT& cs)
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return CView::PreCreateWindow(cs);
+	return CScrollView::PreCreateWindow(cs);
+}
+
+void CtpView::OnInitialUpdate()
+{
+	CtpDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+
+	CSize size(pDoc->GetImage().GetWidth(), pDoc->GetImage().GetHeight());
+	SetScrollSizes(MM_TEXT, size);
 }
 
 // CtpView drawing
@@ -63,12 +74,12 @@ void CtpView::OnDraw(CDC* pDC)
 #ifdef _DEBUG
 void CtpView::AssertValid() const
 {
-	CView::AssertValid();
+	CScrollView::AssertValid();
 }
 
 void CtpView::Dump(CDumpContext& dc) const
 {
-	CView::Dump(dc);
+	CScrollView::Dump(dc);
 }
 
 CtpDoc* CtpView::GetDocument() const // non-debug version is inline
