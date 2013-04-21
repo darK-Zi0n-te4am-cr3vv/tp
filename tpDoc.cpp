@@ -53,18 +53,6 @@ BOOL CtpDoc::OnNewDocument()
 
 // CtpDoc serialization
 
-void CtpDoc::Serialize(CArchive& ar)
-{
-	if (ar.IsStoring())
-	{
-		// TODO: add storing code here
-	}
-	else
-	{
-		// TODO: add loading code here
-	}
-}
-
 #ifdef SHARED_HANDLERS
 
 // Support for thumbnails
