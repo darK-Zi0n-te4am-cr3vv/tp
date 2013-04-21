@@ -21,6 +21,8 @@ public:
 // Overrides
 public:
 	virtual BOOL OnNewDocument();
+	virtual BOOL OnOpenDocument(LPCTSTR lPathName);
+	virtual BOOL OnSaveDocument(LPCTSTR lPathName);
 #ifdef SHARED_HANDLERS
 	virtual void InitializeSearchContent();
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
@@ -46,5 +48,5 @@ protected:
 #endif // SHARED_HANDLERS
 
 private:
-	CBitmap m_Bitmap;
+	CImage m_Image;
 };

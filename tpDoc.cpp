@@ -48,6 +48,22 @@ BOOL CtpDoc::OnNewDocument()
 	return TRUE;
 }
 
+BOOL CtpDoc::OnOpenDocument(LPCTSTR lPathName)
+{
+	if (FAILED(m_Image.Load(lPathName)))
+		return FALSE;
+
+	return TRUE;
+}
+
+BOOL CtpDoc::OnSaveDocument(LPCTSTR lPathName)
+{
+	if (FAILED(m_Image.Save(lPathName)))
+		return FALSE;
+
+	return TRUE;
+}
+
 #ifdef SHARED_HANDLERS
 
 // Support for thumbnails
