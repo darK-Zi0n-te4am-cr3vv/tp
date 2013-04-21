@@ -42,6 +42,9 @@ BOOL CtpDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	if (!m_Image.IsNull())
+		m_Image.Destroy();
+
 	m_Image.Create(640, 480, 24, 0);
 
 	return TRUE;
@@ -49,6 +52,9 @@ BOOL CtpDoc::OnNewDocument()
 
 BOOL CtpDoc::OnOpenDocument(LPCTSTR lPathName)
 {
+	if (!m_Image.IsNull())
+		m_Image.Destroy();
+
 	if (FAILED(m_Image.Load(lPathName)))
 		return FALSE;
 
@@ -57,6 +63,8 @@ BOOL CtpDoc::OnOpenDocument(LPCTSTR lPathName)
 
 BOOL CtpDoc::OnSaveDocument(LPCTSTR lPathName)
 {
+	ATLASSERT(!m_Image.IsNull());
+
 	if (FAILED(m_Image.Save(lPathName)))
 		return FALSE;
 
