@@ -11,6 +11,7 @@
 
 #include "tpDoc.h"
 #include "tpView.h"
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -27,9 +28,9 @@ END_MESSAGE_MAP()
 // CtpView construction/destruction
 
 CtpView::CtpView()
+	: m_FullScreen(FALSE)
 {
-	// TODO: add construction code here
-
+	m_ContextMenu.LoadMenu(IDR_VIEW_MENU);
 }
 
 CtpView::~CtpView()
@@ -68,6 +69,52 @@ void CtpView::OnDraw(CDC* pDC)
 	image.Draw(*pDC, 0, 0);
 }
 
+BOOL CtpView::OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult)
+{
+	if (message == WM_CONTEXTMENU)
+	{
+		int xPos = GET_X_LPARAM(lParam);
+		int yPos = GET_Y_LPARAM(lParam);
+
+		int nCmd = TrackPopupMenu(*m_ContextMenu.GetSubMenu(0),
+			                      TPM_LEFTALIGN | TPM_RETURNCMD,
+					              xPos, yPos, 0, m_hWnd, NULL);
+
+		if (nCmd == ID_CTXMENU_FULLSCREEN)
+		{
+			ToggleFullscreen();
+		}
+	}
+	else
+	{
+		return CScrollView::OnWndMsg(message, wParam, lParam, pResult);
+	}
+}
+
+void CtpView::ToggleFullscreen()
+{
+	if (!m_FullScreen)
+	{
+		m_FullScreen = TRUE;
+		m_SavedParent = GetParent();
+
+		SetParent(GetDesktopWindow());
+
+        CRect rect;
+        GetDesktopWindow()->GetWindowRect(&rect);
+
+        SetWindowPos(&wndTopMost,rect.left,rect.top,
+                     rect.right,rect.bottom,SWP_SHOWWINDOW);
+    }
+    else
+	{
+		m_FullScreen = FALSE;
+
+        this->SetParent(m_SavedParent);
+
+        ((CMainFrame *)AfxGetMainWnd())->RecalcLayout();
+    }
+}
 
 // CtpView diagnostics
 

@@ -22,6 +22,7 @@ public:
 public:
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
+	virtual BOOL OnWndMsg(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pResult);
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 protected:
 
@@ -38,6 +39,15 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+
+private:
+	CMenu m_ContextMenu;
+
+	BOOL m_FullScreen;
+	CWnd *m_SavedParent;
+
+	void ToggleFullscreen();
+
 };
 
 #ifndef _DEBUG  // debug version in tpView.cpp
